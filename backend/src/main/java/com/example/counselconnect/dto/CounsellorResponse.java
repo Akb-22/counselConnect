@@ -12,10 +12,10 @@ public class CounsellorResponse {
 
     private Long id;
     private String fullName;
-    private String specialization;
-    private Integer experience;
     private String email;
     private String phone;
+    private String specialization;
+    private Integer experience;
     private String city;
     private String state;
 }

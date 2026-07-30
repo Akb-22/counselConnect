@@ -168,6 +168,12 @@ public class CounsellorServiceImpl implements CounsellorService {
                 .map(c -> CounsellorResponse.builder()
                         .id(c.getId())
                         .fullName(c.getFirstName() + " " + c.getLastName())
+                        .email(c.getEmail())
+                        .phone(c.getPhone())
+                        .specialization(c.getSpecialization())
+                        .experience(c.getExperience())
+                        .city(c.getCity())
+                        .state(c.getState())
                         .build())
                 .toList();
     }
