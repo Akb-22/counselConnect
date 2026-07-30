@@ -533,7 +533,7 @@ function Home() {
             MySQL & Gemini AI
 
           </small>
-
+          <div>
            <span
              className="px-3 py-1 rounded-pill"
              style={{
@@ -544,7 +544,8 @@ function Home() {
              }}
            >
              CounselConnect™ • Built by Akansha
-           </span>
+           </span></div>
+
 
         </div>
 
