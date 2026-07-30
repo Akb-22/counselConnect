@@ -534,6 +534,18 @@ function Home() {
 
           </small>
 
+           <span
+             className="px-3 py-1 rounded-pill"
+             style={{
+               border: "1px solid #FFD700",
+               color: "#FFD700",
+               fontSize: "0.8rem",
+               fontWeight: "600"
+             }}
+           >
+             CounselConnect™ • Built by Akansha
+           </span>
+
         </div>
 
       </footer>
