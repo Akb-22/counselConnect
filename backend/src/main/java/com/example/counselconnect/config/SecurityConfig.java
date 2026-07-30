@@ -42,14 +42,12 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(
+        configuration.setAllowedOriginPatterns(
                 List.of(
-                        "http://localhost:5173",
-                        "http://localhost:5174",
-                        "https://counsel-connect-jet.vercel.app"
+                        "http://localhost:*",
+                        "https://*.vercel.app"
                 )
         );
-
         configuration.setAllowedMethods(
                 List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
         );
