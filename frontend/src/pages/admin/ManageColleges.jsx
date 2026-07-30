@@ -71,8 +71,7 @@ function ManageColleges() {
                         <th>Location</th>
                         <th>Courses</th>
                         <th>Ranking</th>
-                        <th>Fees</th>
-                        <th>Action</th>
+
                     </tr>
                 </thead>
 
