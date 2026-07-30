@@ -118,7 +118,7 @@ public class CutoffServiceImpl implements CutoffService {
                 .year(cutoff.getYear())
                 .build();
     }
-    private final StudentRepository studentRepository;
+
     @Override
     public List<CollegePredictionResponse> predictCollege(PredictionRequest request) {
 

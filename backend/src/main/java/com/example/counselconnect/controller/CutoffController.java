@@ -5,6 +5,7 @@ import com.example.counselconnect.dto.CreateCutoffRequest;
 import com.example.counselconnect.dto.CutoffResponse;
 import com.example.counselconnect.dto.PredictionRequest;
 import com.example.counselconnect.services.CutoffService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,7 @@ public class CutoffController {
     }
     @PostMapping("/predict")
     public ResponseEntity<List<CollegePredictionResponse>> predictCollege(
-            @RequestBody PredictionRequest request) {
+            @Valid @RequestBody PredictionRequest request) {
 
         return ResponseEntity.ok(
                 cutoffService.predictCollege(request)
