@@ -3,6 +3,7 @@ package com.example.counselconnect.services;
 import com.example.counselconnect.dto.CollegePredictionResponse;
 import com.example.counselconnect.dto.CreateCutoffRequest;
 import com.example.counselconnect.dto.CutoffResponse;
+import com.example.counselconnect.dto.PredictionRequest;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface CutoffService {
     String updateCutoff(Long id, CreateCutoffRequest request);
 
     String deleteCutoff(Long id);
-    List<CollegePredictionResponse> predictCollege(String email);
+    List<CollegePredictionResponse> predictCollege(PredictionRequest request);
 
 }

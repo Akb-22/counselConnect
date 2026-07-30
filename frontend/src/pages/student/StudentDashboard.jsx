@@ -118,6 +118,16 @@ function StudentDashboard() {
 
 <div className="row mt-5 justify-content-center g-4">
 
+    <div className="col-lg-2 col-md-4 col-sm-6">
+      <button
+        className="dashboard-btn w-100"
+        onClick={() => navigate("/student/cutoff-prediction")}
+      >
+        <div className="fs-3 mb-2">🎯</div>
+        <span>Cutoff Prediction</span>
+      </button>
+    </div>
+
   <div className="col-lg-2 col-md-4 col-sm-6">
     <button
       className="dashboard-btn w-100"

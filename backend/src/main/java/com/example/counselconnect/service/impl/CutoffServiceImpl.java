@@ -3,6 +3,7 @@ package com.example.counselconnect.service.impl;
 import com.example.counselconnect.dto.CollegePredictionResponse;
 import com.example.counselconnect.dto.CreateCutoffRequest;
 import com.example.counselconnect.dto.CutoffResponse;
+import com.example.counselconnect.dto.PredictionRequest;
 import com.example.counselconnect.entity.Branch;
 import com.example.counselconnect.entity.College;
 import com.example.counselconnect.entity.Cutoff;
@@ -119,17 +120,15 @@ public class CutoffServiceImpl implements CutoffService {
     }
     private final StudentRepository studentRepository;
     @Override
-    public List<CollegePredictionResponse> predictCollege(String email) {
-
-        Student student = studentRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+    public List<CollegePredictionResponse> predictCollege(PredictionRequest request) {
 
         List<Cutoff> cutoffs =
                 cutoffRepository.findByCategoryAndHomeStateAndClosingRankGreaterThanEqual(
-                        student.getCategory(),
-                        student.getHomeState(),
-                        student.getAllIndiaRank().intValue()
+                        request.getCategory(),
+                        request.getHomeState(),
+                        request.getRank()
                 );
+
         return cutoffs.stream()
                 .map(cutoff -> CollegePredictionResponse.builder()
                         .collegeName(cutoff.getCollege().getCollegeName())
@@ -141,5 +140,4 @@ public class CutoffServiceImpl implements CutoffService {
                         .year(cutoff.getYear())
                         .build())
                 .toList();
-    }
-}
+    }}

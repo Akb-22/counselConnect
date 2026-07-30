@@ -22,7 +22,7 @@ import UpdateCounsellorProfile from "./pages/counsellor/UpdateCounsellorProfile"
 import CounsellorChangePassword from "./pages/counsellor/CounsellorChangePassword";
 import StudentChangePassword from "./pages/student/StudentChangePassword";
 import RegisterCounsellor from "./pages/admin/RegisterCounsellor";
-
+import CutoffPrediction from "./pages/student/CutoffPrediction";
 
 function Home() {
   return (
@@ -697,6 +697,14 @@ function App() {
   element={
     <ProtectedRoute>
       <UpdateStudentProfile />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/student/cutoff-prediction"
+  element={
+    <ProtectedRoute>
+      <CutoffPrediction />
     </ProtectedRoute>
   }
 />
