@@ -64,11 +64,11 @@ function ManageStudents() {
 
                 <thead className="table-dark">
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>State</th>
+                        <th>Category</th>
+                        <th>Action</th>
 
                     </tr>
                 </thead>
@@ -78,7 +78,7 @@ function ManageStudents() {
                     {students.map(student => (
 
                         <tr key={student.id}>
-
+                         <td>{student.id}</td>
                          <td>{student.firstName} {student.lastName}</td>
                          <td>{student.email}</td>
                          <td>{student.phone}</td>

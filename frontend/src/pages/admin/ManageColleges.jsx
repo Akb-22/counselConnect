@@ -68,9 +68,9 @@ function ManageColleges() {
                     <tr>
                         <th>ID</th>
                         <th>College Name</th>
-                        <th>Location</th>
+                        <th>NirfRanking</th>
                         <th>Courses</th>
-                        <th>Ranking</th>
+                        <th>Action</th>
 
                     </tr>
                 </thead>
