@@ -122,12 +122,12 @@ return (
                         </option>
 
                         {counsellors.map((counsellor) => (
-                            <option
-                                key={counsellor.id}
-                                value={counsellor.id}
-                            >
-                                {counsellor.firstName} {counsellor.lastName}
-                            </option>
+                           <option
+                               key={counsellor.id}
+                               value={counsellor.id}
+                           >
+                               {counsellor.fullName}
+                           </option>
                         ))}
 
                     </select>
@@ -145,12 +145,10 @@ return (
                                 <div className="row">
 
                                     <div className="col-md-6">
-
-                                        <p>
-                                            <strong>Name :</strong><br />
-                                            {selectedCounsellor.firstName} {selectedCounsellor.lastName}
-                                        </p>
-
+<p>
+                                       <strong>Name :</strong><br />
+                                       {selectedCounsellor.fullName}
+</p>
                                         <p>
                                             <strong>Email :</strong><br />
                                             {selectedCounsellor.email}

@@ -1,7 +1,9 @@
 package com.example.counselconnect.service.impl;
 import com.example.counselconnect.dto.*;
+import com.example.counselconnect.entity.Counsellor;
 import com.example.counselconnect.entity.Student;
 import com.example.counselconnect.repository.AppointmentRepository;
+import com.example.counselconnect.repository.CounsellorRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.example.counselconnect.enums.Role;
@@ -14,18 +16,20 @@ import com.example.counselconnect.services.StudentService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-
+    private final CounsellorRepository counsellorRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
     private final AppointmentRepository appointmentRepository;
-    public StudentServiceImpl(StudentRepository studentRepository,
+    public StudentServiceImpl(CounsellorRepository counsellorRepository, StudentRepository studentRepository,
                               PasswordEncoder passwordEncoder,
                               JwtService jwtService,
                               AppointmentRepository appointmentRepository) {
+        this.counsellorRepository = counsellorRepository;
 
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
@@ -233,4 +237,24 @@ public class StudentServiceImpl implements StudentService {
                         appointmentRepository.countByStudentAndStatus(
                                 student, AppointmentStatus.COMPLETED))
                 .build();
-}}
+}
+    @Override
+    public List<CounsellorResponse> getAllCounsellors() {
+
+        List<Counsellor> counsellors = counsellorRepository.findAll();
+
+        return counsellors.stream()
+                .map(counsellor -> CounsellorResponse.builder()
+                        .id(counsellor.getId())
+                        .fullName(counsellor.getFirstName() + " " + counsellor.getLastName())
+                        .specialization(counsellor.getSpecialization())
+                        .experience(counsellor.getExperience())
+                        .email(counsellor.getEmail())
+                        .phone(counsellor.getPhone())
+                        .city(counsellor.getCity())
+                        .state(counsellor.getState())
+                        .build())
+                .toList();
+    }
+
+}

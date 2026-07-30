@@ -67,8 +67,8 @@ function ManageCounsellors() {
              <thead className="table-dark">
                  <tr>
                      <th>ID</th>
-
-                     <th>Name</th>
+                     <th>First Name</th>
+                     <th>Last Name</th>
                      <th>Email</th>
                      <th>Phone</th>
                      <th>Specialization</th>
