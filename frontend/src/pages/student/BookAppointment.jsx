@@ -20,21 +20,26 @@ function BookAppointment() {
     }, []);
 
     const fetchCounsellors = async () => {
+
         try {
 
             const token = localStorage.getItem("token");
 
-            const response = await api.get("/students/counsellors", {
-                headers: {
-                    Authorization: `Bearer ${token}`
+            const response = await api.get(
+                "/students/counsellors",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            });
+            );
 
             console.log(response.data);
 
             setCounsellors(response.data);
 
         } catch (error) {
+
             console.error(error);
             alert("Failed to load counsellors");
         }
@@ -83,103 +88,175 @@ function BookAppointment() {
         }
     };
 
-    return (
-        <div className="container mt-4">
+    const selectedCounsellor = counsellors.find(
+        (counsellor) =>
+            counsellor.id == appointment.counsellorId
+    );
+return (
+    <div className="container mt-4">
 
-            <div className="card shadow p-4">
+        <div className="card shadow p-4">
 
-                <h2 className="text-center mb-4">
-                    Book Appointment
-                </h2>
+            <h2 className="text-center mb-4">
+                Book Appointment
+            </h2>
 
-                <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
 
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Select Counsellor
-                        </label>
+                <div className="mb-3">
 
-                        <select
-                            className="form-select"
-                            name="counsellorId"
-                            value={appointment.counsellorId}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">
-                                Select Counsellor
-                            </option>
+                    <label className="form-label">
+                        Select Counsellor
+                    </label>
 
-                            {counsellors.map((counsellor) => (
-                                <option
-                                    key={counsellor.id}
-                                    value={counsellor.id}
-                                >
-                                    {counsellor.fullName}
-                                </option>
-                            ))}
-
-                        </select>
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Appointment Date
-                        </label>
-
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="appointmentDate"
-                            value={appointment.appointmentDate}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Appointment Time
-                        </label>
-
-                        <input
-                            type="time"
-                            className="form-control"
-                            name="appointmentTime"
-                            value={appointment.appointmentTime}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Reason
-                        </label>
-
-                        <textarea
-                            className="form-control"
-                            rows="4"
-                            name="reason"
-                            value={appointment.reason}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="btn btn-success w-100"
+                    <select
+                        className="form-select"
+                        name="counsellorId"
+                        value={appointment.counsellorId}
+                        onChange={handleChange}
+                        required
                     >
-                        Book Appointment
-                    </button>
 
-                </form>
+                        <option value="">
+                            Select Counsellor
+                        </option>
 
-            </div>
+                        {counsellors.map((counsellor) => (
+                            <option
+                                key={counsellor.id}
+                                value={counsellor.id}
+                            >
+                                {counsellor.firstName} {counsellor.lastName}
+                            </option>
+                        ))}
+
+                    </select>
+
+                    {selectedCounsellor && (
+
+                        <div className="card border-primary shadow-sm mt-3">
+
+                            <div className="card-body">
+
+                                <h5 className="text-primary mb-3">
+                                    Counsellor Details
+                                </h5>
+
+                                <div className="row">
+
+                                    <div className="col-md-6">
+
+                                        <p>
+                                            <strong>Name :</strong><br />
+                                            {selectedCounsellor.firstName} {selectedCounsellor.lastName}
+                                        </p>
+
+                                        <p>
+                                            <strong>Email :</strong><br />
+                                            {selectedCounsellor.email}
+                                        </p>
+
+                                        <p>
+                                            <strong>Phone :</strong><br />
+                                            {selectedCounsellor.phone}
+                                        </p>
+
+                                    </div>
+
+                                    <div className="col-md-6">
+
+                                        <p>
+                                            <strong>Specialization :</strong><br />
+                                            {selectedCounsellor.specialization}
+                                        </p>
+
+                                        <p>
+                                            <strong>Experience :</strong><br />
+                                            {selectedCounsellor.experience} Years
+                                        </p>
+
+                                        <p>
+                                            <strong>Location :</strong><br />
+                                            {selectedCounsellor.city}, {selectedCounsellor.state}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    )}
+
+                </div>
+
+                <div className="mb-3">
+
+                    <label className="form-label">
+                        Appointment Date
+                    </label>
+
+                    <input
+                        type="date"
+                        className="form-control"
+                        name="appointmentDate"
+                        value={appointment.appointmentDate}
+                        onChange={handleChange}
+                        required
+                    />
+
+                </div>
+
+                <div className="mb-3">
+
+                    <label className="form-label">
+                        Appointment Time
+                    </label>
+
+                    <input
+                        type="time"
+                        className="form-control"
+                        name="appointmentTime"
+                        value={appointment.appointmentTime}
+                        onChange={handleChange}
+                        required
+                    />
+
+                </div>
+
+                <div className="mb-3">
+
+                    <label className="form-label">
+                        Reason
+                    </label>
+
+                    <textarea
+                        className="form-control"
+                        rows="4"
+                        name="reason"
+                        value={appointment.reason}
+                        onChange={handleChange}
+                        required
+                    />
+
+                </div>
+
+                <button
+                    type="submit"
+                    className="btn btn-success w-100"
+                >
+                    Book Appointment
+                </button>
+
+            </form>
 
         </div>
-    );
+
+    </div>
+);
+
 }
 
 export default BookAppointment;
