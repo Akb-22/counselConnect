@@ -56,7 +56,7 @@ function StudentDashboard() {
     <div className="container mt-4">
 
                 <div className=" text-center mb-4 card-header bg-warning">
-                    <h2>Welcome,{dashboard.studentName}</h2>
+                    <h2>Welcome {dashboard.studentName}</h2>
                 </div>
 
 
