@@ -24,6 +24,8 @@ import StudentChangePassword from "./pages/student/StudentChangePassword";
 import RegisterCounsellor from "./pages/admin/RegisterCounsellor";
 import CutoffPrediction from "./pages/student/CutoffPrediction";
 
+import DocumentUpload from "./pages/DocumentUpload";
+
 function Home() {
   return (
     <>
@@ -721,8 +723,12 @@ function App() {
     </ProtectedRoute>
   }
 />
-
+<Route
+  path="/student/upload-documents"
+  element={<DocumentUpload />}
+/>
 </Routes>
+
 
   <AIChat />
     </BrowserRouter>

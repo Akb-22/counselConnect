@@ -167,6 +167,15 @@ function StudentDashboard() {
       <span>Update Profile</span>
     </button>
   </div>
+  <div className="col-lg-2 col-md-4 col-sm-6">
+    <button
+      className="dashboard-btn w-100"
+      onClick={() => navigate("/student/upload-documents")}
+    >
+      <div className="fs-3 mb-2">📁</div>
+      <span>Upload Documents</span>
+    </button>
+  </div>
 
   <div className="col-lg-2 col-md-4 col-sm-6">
     <button
