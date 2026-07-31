@@ -9,11 +9,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface StudentDocumentService {
 
-    String uploadDocument(
+
+    String uploadDocuments(
             String email,
-            String documentType,
-            MultipartFile file
+            MultipartFile aadhaar,
+            MultipartFile scorecard,
+            MultipartFile marksheet,
+            MultipartFile photo,
+            MultipartFile signature,
+            MultipartFile categoryCertificate,
+            MultipartFile domicileCertificate
     );
+
 
     DocumentResponse getMyDocuments(String email);
 

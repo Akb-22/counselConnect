@@ -16,21 +16,38 @@ public class StudentDocumentController {
 
     private final StudentDocumentService documentService;
     @PostMapping("/upload")
-    public ResponseEntity<DocumentUploadResponse> uploadDocument(
-            @RequestParam String documentType,
-            @RequestParam MultipartFile file,
+    public ResponseEntity<DocumentUploadResponse> uploadDocuments(
+
+            @RequestParam(required = false) MultipartFile aadhaar,
+
+            @RequestParam(required = false) MultipartFile scorecard,
+
+            @RequestParam(required = false) MultipartFile marksheet,
+
+            @RequestParam(required = false) MultipartFile photo,
+
+            @RequestParam(required = false) MultipartFile signature,
+
+            @RequestParam(required = false) MultipartFile categoryCertificate,
+
+            @RequestParam(required = false) MultipartFile domicileCertificate,
+
             Authentication authentication
     ) {
 
-        String message = documentService.uploadDocument(
+        String message = documentService.uploadDocuments(
                 authentication.getName(),
-                documentType,
-                file
+                aadhaar,
+                scorecard,
+                marksheet,
+                photo,
+                signature,
+                categoryCertificate,
+                domicileCertificate
         );
 
         return ResponseEntity.ok(new DocumentUploadResponse(message));
     }
-
     @GetMapping("/my")
     public ResponseEntity<DocumentResponse> getMyDocuments(
             Authentication authentication

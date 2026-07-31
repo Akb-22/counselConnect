@@ -33,9 +33,16 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
     private String uploadDir;
 
     @Override
-    public String uploadDocument(String email,
-                                 String documentType,
-                                 MultipartFile file) {
+    public String uploadDocuments(
+            String email,
+            MultipartFile aadhaar,
+            MultipartFile scorecard,
+            MultipartFile marksheet,
+            MultipartFile photo,
+            MultipartFile signature,
+            MultipartFile categoryCertificate,
+            MultipartFile domicileCertificate
+    ) {
 
         Student student = studentRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
@@ -49,44 +56,32 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
 
         try {
 
-            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            if (aadhaar != null && !aadhaar.isEmpty()) {
+                document.setAadhaarPath(saveFile(aadhaar));
+            }
 
-            Path path = Paths.get(uploadDir, fileName);
+            if (scorecard != null && !scorecard.isEmpty()) {
+                document.setJeeScorecardPath(saveFile(scorecard));
+            }
 
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            if (marksheet != null && !marksheet.isEmpty()) {
+                document.setTwelfthMarksheetPath(saveFile(marksheet));
+            }
 
-            switch (documentType.toLowerCase()) {
+            if (photo != null && !photo.isEmpty()) {
+                document.setPhotoPath(saveFile(photo));
+            }
 
-                case "aadhaar":
-                    document.setAadhaarPath(fileName);
-                    break;
+            if (signature != null && !signature.isEmpty()) {
+                document.setSignaturePath(saveFile(signature));
+            }
 
-                case "jee":
-                    document.setJeeScorecardPath(fileName);
-                    break;
+            if (categoryCertificate != null && !categoryCertificate.isEmpty()) {
+                document.setCategoryCertificatePath(saveFile(categoryCertificate));
+            }
 
-                case "twelfth":
-                    document.setTwelfthMarksheetPath(fileName);
-                    break;
-
-                case "photo":
-                    document.setPhotoPath(fileName);
-                    break;
-
-                case "signature":
-                    document.setSignaturePath(fileName);
-                    break;
-
-                case "category":
-                    document.setCategoryCertificatePath(fileName);
-                    break;
-
-                case "domicile":
-                    document.setDomicileCertificatePath(fileName);
-                    break;
-
-                default:
-                    throw new RuntimeException("Invalid document type");
+            if (domicileCertificate != null && !domicileCertificate.isEmpty()) {
+                document.setDomicileCertificatePath(saveFile(domicileCertificate));
             }
 
             document.setVerificationStatus(VerificationStatus.PENDING);
@@ -94,13 +89,14 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
 
             documentRepository.save(document);
 
-            return "Document uploaded successfully.";
+            return "Documents uploaded successfully.";
 
         } catch (IOException e) {
-            throw new RuntimeException("Failed to upload document.");
+            throw new RuntimeException("Failed to upload documents.");
         }
-
     }
+
+
     @Override
     public DocumentResponse getMyDocuments(String email) {
 
@@ -120,5 +116,23 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
                 .domicileCertificatePath(document.getDomicileCertificatePath())
                 .verificationStatus(document.getVerificationStatus().name())
                 .build();
+    }
+    private String saveFile(MultipartFile file) throws IOException {
+
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+        Path path = Paths.get(uploadDir);
+
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+
+        Files.copy(
+                file.getInputStream(),
+                path.resolve(fileName),
+                StandardCopyOption.REPLACE_EXISTING
+        );
+
+        return fileName;
     }
 }

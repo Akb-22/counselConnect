@@ -33,21 +33,37 @@ const DocumentUpload = () => {
     try {
       const token = localStorage.getItem("token");
 
-     await api.post(
-         "/student/documents/upload",
-         formData,
-         {
-             headers:{
-                 Authorization:`Bearer ${token}`,
-                 "Content-Type":"multipart/form-data"
-             }
-         }
-     );
+      await api.post(
+        "/documents/upload",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       alert("Documents uploaded successfully.");
+
+      setDocuments({
+        aadhaar: null,
+        scorecard: null,
+        marksheet: null,
+        photo: null,
+        signature: null,
+        categoryCertificate: null,
+        domicileCertificate: null,
+      });
+
     } catch (error) {
       console.error(error);
-      alert("Upload failed.");
+
+      if (error.response) {
+        alert(error.response.data.message || "Upload failed.");
+      } else {
+        alert("Server not reachable.");
+      }
     }
   };
 return (
