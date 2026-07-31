@@ -11,13 +11,38 @@ const DocumentUpload = () => {
     categoryCertificate: null,
     domicileCertificate: null,
   });
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-  const handleChange = (e) => {
-    setDocuments({
-      ...documents,
-      [e.target.name]: e.target.files[0],
-    });
-  };
+const handleChange = (e) => {
+
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  const allowedTypes = [
+    "application/pdf",
+    "image/jpeg",
+    "image/jpg",
+    "image/png"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("❌ Only PDF, JPG, JPEG and PNG files are allowed.");
+    e.target.value = "";
+    return;
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+    alert("❌ File size must not exceed 10 MB.");
+    e.target.value = "";
+    return;
+  }
+
+  setDocuments({
+    ...documents,
+    [e.target.name]: file,
+  });
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,6 +103,17 @@ return (
       </div>
 
       <div className="card-body">
+          <div className="alert alert-info">
+
+              <strong>Instructions</strong>
+
+              <ul className="mb-0 mt-2">
+                  <li>Allowed formats: PDF, JPG, JPEG, PNG</li>
+                  <li>Maximum file size: 10 MB</li>
+                  <li>Upload clear and readable documents.</li>
+              </ul>
+
+          </div>
 
         <form onSubmit={handleSubmit}>
 
@@ -87,60 +123,75 @@ return (
               <label className="form-label fw-bold">
                 Aadhaar Card
               </label>
-              <input
+            <input
                 type="file"
                 className="form-control"
                 name="aadhaar"
+                accept=".pdf,.jpg,.jpeg,.png"
                 onChange={handleChange}
-              />
+            /><small className="text-muted">
+              PDF, JPG, PNG • Max 10 MB
+              </small>
             </div>
 
             <div className="col-md-6 mb-3">
               <label className="form-label fw-bold">
                 JEE Scorecard
               </label>
-              <input
-                type="file"
-                className="form-control"
-                name="scorecard"
-                onChange={handleChange}
-              />
+             <input
+                 type="file"
+                 className="form-control"
+                 name="scorecard"
+                 accept=".pdf,.jpg,.jpeg,.png"
+                 onChange={handleChange}
+             /><small className="text-muted">
+               PDF, JPG, PNG • Max 10 MB
+               </small>
             </div>
 
             <div className="col-md-6 mb-3">
               <label className="form-label fw-bold">
                 12th Marksheet
               </label>
-              <input
+            <input
                 type="file"
                 className="form-control"
                 name="marksheet"
+                accept=".pdf,.jpg,.jpeg,.png"
                 onChange={handleChange}
-              />
+            /><small className="text-muted">
+              PDF, JPG, PNG • Max 10 MB
+              </small>
             </div>
 
             <div className="col-md-6 mb-3">
               <label className="form-label fw-bold">
                 Passport Photo
               </label>
-              <input
-                type="file"
-                className="form-control"
-                name="photo"
-                onChange={handleChange}
-              />
+             <input
+                 type="file"
+                 className="form-control"
+                 name="photo"
+                 accept=".pdf,.jpg,.jpeg,.png"
+                 onChange={handleChange}
+             /><small className="text-muted">
+               PDF, JPG, PNG • Max 10 MB
+               </small>
             </div>
 
             <div className="col-md-6 mb-3">
               <label className="form-label fw-bold">
                 Signature
               </label>
-              <input
-                type="file"
-                className="form-control"
-                name="signature"
-                onChange={handleChange}
-              />
+           <input
+               type="file"
+               className="form-control"
+               name="sign"
+               accept=".pdf,.jpg,.jpeg,.png"
+               onChange={handleChange}
+           /><small className="text-muted">
+             PDF, JPG, PNG • Max 10 MB
+             </small>
             </div>
 
             <div className="col-md-6 mb-3">
@@ -148,23 +199,29 @@ return (
                 Category Certificate
               </label>
               <input
-                type="file"
-                className="form-control"
-                name="categoryCertificate"
-                onChange={handleChange}
-              />
+                  type="file"
+                  className="form-control"
+                  name="category"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={handleChange}
+              /><small className="text-muted">
+                PDF, JPG, PNG • Max 10 MB
+                </small>
             </div>
 
             <div className="col-md-6 mb-3">
               <label className="form-label fw-bold">
                 Domicile Certificate
               </label>
-              <input
-                type="file"
-                className="form-control"
-                name="domicileCertificate"
-                onChange={handleChange}
-              />
+             <input
+                 type="file"
+                 className="form-control"
+                 name="domicile"
+                 accept=".pdf,.jpg,.jpeg,.png"
+                 onChange={handleChange}
+             /><small className="text-muted">
+               PDF, JPG, PNG • Max 10 MB
+               </small>
             </div>
 
           </div>

@@ -119,6 +119,23 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
     }
     private String saveFile(MultipartFile file) throws IOException {
 
+        // Maximum file size = 10 MB
+        long MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new RuntimeException("File size must not exceed 10 MB.");
+        }
+
+        String contentType = file.getContentType();
+
+        if (contentType == null || !(
+                contentType.equals("application/pdf") ||
+                        contentType.equals("image/jpeg") ||
+                        contentType.equals("image/png")
+        )) {
+            throw new RuntimeException("Only PDF, JPG, JPEG and PNG files are allowed.");
+        }
+
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         Path path = Paths.get(uploadDir);
@@ -132,6 +149,9 @@ public class StudentDocumentServiceImpl implements StudentDocumentService {
                 path.resolve(fileName),
                 StandardCopyOption.REPLACE_EXISTING
         );
+
+        return fileName;
+    }
 
         return fileName;
     }
