@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 const DocumentUpload = () => {
   const [documents, setDocuments] = useState({
@@ -33,16 +33,16 @@ const DocumentUpload = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:8080/api/student/documents/upload",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+     await api.post(
+         "/student/documents/upload",
+         formData,
+         {
+             headers:{
+                 Authorization:`Bearer ${token}`,
+                 "Content-Type":"multipart/form-data"
+             }
+         }
+     );
 
       alert("Documents uploaded successfully.");
     } catch (error) {
